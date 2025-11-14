@@ -23,7 +23,7 @@ const MONGO_REMOTE_URI = process.env.MONGO_REMOTE_URI;
 
 app.use(
     cors({
-        origin: process.env.CLIENT_URL || "*",
+        origin: "https://user-tracking.site" || "http://localhost:5173",
         // origin: 'http://localhost:5173',
         methods: ["GET", "POST", "DELETE", "PUT"],
         allowedHeaders: ["Content-Type", "Authorization"],
