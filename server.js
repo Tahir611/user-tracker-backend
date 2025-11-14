@@ -20,11 +20,20 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 // const MONGO_URI = process.env.MONGO_URI;
 const MONGO_REMOTE_URI = process.env.MONGO_REMOTE_URI;
-
+const allowedOrigins = [
+    "https://user-tracking.site",
+    "http://localhost:5173",
+    "http://localhost:3000",
+];
 app.use(
     cors({
-        origin: "https://user-tracking.site" || "http://localhost:5173",
-        // origin: 'http://localhost:5173',
+        origin: function (origin, callback) {
+            if (!origin || allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error("CORS not allowed"));
+            }
+        },
         methods: ["GET", "POST", "DELETE", "PUT"],
         allowedHeaders: ["Content-Type", "Authorization"],
     })
